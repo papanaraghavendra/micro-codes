@@ -1,0 +1,1658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Raghavendra Papana | Projects Hub</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --bg-light: #020617;
+            --card-bg: #0b1220;
+            --accent: #38bdf8;
+            --accent-soft: rgba(56, 189, 248, 0.18);
+            --text-main: #e5e7eb;
+            --text-muted: #9ca3af;
+            --border-subtle: rgba(148, 163, 184, 0.28);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+                Roboto, Arial, sans-serif;
+            background: radial-gradient(circle at top, #1d283a 0, #020617 55%, #000 100%);
+            color: var(--text-main);
+            min-height: 100vh;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        /* Main header */
+        header {
+            padding: 24px 16px 16px;
+            background: linear-gradient(135deg, #020617 0%, #111827 50%, #020617 100%);
+            border-bottom: 1px solid var(--border-subtle);
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            backdrop-filter: blur(14px);
+            background-color: rgba(15, 23, 42, 0.9);
+        }
+
+        .header-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .branding {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .avatar-circle {
+            width: 40px;
+            height: 40px;
+            border-radius: 999px;
+            background: radial-gradient(circle at 30% 20%, #38bdf8, #0f172a);
+            border: 1px solid rgba(148, 163, 184, 0.7);
+            box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.9),
+                0 10px 25px rgba(0, 0, 0, 0.6);
+        }
+
+        header h1 {
+            font-size: 1.5rem;
+            letter-spacing: 0.04em;
+        }
+
+        .tagline {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .nav-link {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            padding: 6px 10px;
+            border-radius: 999px;
+            border: 1px solid rgba(148, 163, 184, 0.5);
+            color: var(--text-muted);
+        }
+
+        .nav-link:hover {
+            color: var(--accent);
+            border-color: var(--accent);
+        }
+
+        main {
+            max-width: 1100px;
+            margin: 20px auto 40px auto;
+            padding: 0 16px 40px;
+        }
+
+        .section-card {
+            background: radial-gradient(circle at top left, #111827, #020617 60%);
+            border-radius: 18px;
+            padding: 18px 18px 16px;
+            border: 1px solid rgba(31, 41, 55, 0.9);
+            box-shadow: 0 18px 40px rgba(15, 23, 42, 0.85);
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .section-card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at top right, rgba(56, 189, 248, 0.1), transparent 55%);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease-out;
+        }
+
+        .section-card:hover::before {
+            opacity: 1;
+        }
+
+        .section-inner {
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-title-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 6px;
+            margin-bottom: 6px;
+        }
+
+        h2 {
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            color: var(--text-muted);
+        }
+
+        .pill {
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            padding: 3px 9px;
+            border-radius: 999px;
+            border: 1px solid rgba(148, 163, 184, 0.5);
+            color: var(--text-muted);
+        }
+
+        .lead {
+            font-size: 1.03rem;
+            line-height: 1.6;
+            color: var(--text-main);
+            margin-top: 6px;
+        }
+
+        p {
+            font-size: 0.94rem;
+            line-height: 1.7;
+            color: var(--text-muted);
+        }
+
+        /* Reuse containers of original mini-apps */
+        .two-column {
+            display: grid;
+            grid-template-columns: minmax(0, 1.6fr) minmax(0, 1.4fr);
+            gap: 18px;
+        }
+
+        @media (max-width: 900px) {
+            .two-column {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        footer {
+            border-top: 1px solid var(--border-subtle);
+            padding: 14px 20px 20px;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            text-align: center;
+            background: linear-gradient(to top, rgba(15, 23, 42, 0.96), transparent);
+        }
+
+        /* Embed original components' CSS with minimal changes */
+
+        /* Student form wrapper */
+        .student-wrapper,
+        .bmi-wrapper,
+        .bank-wrapper,
+        .vote-wrapper,
+        .stopwatch-wrapper,
+        .powers-wrapper,
+        .calendar-wrapper-outer {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        .student-card,
+        .bmi-card,
+        .bank-card,
+        .stopwatch-card {
+            background: radial-gradient(circle at top left, #020617, #020617 55%, #020617 100%);
+            border-radius: 18px;
+            padding: 22px 20px 24px;
+            border: 1px solid rgba(31, 41, 55, 0.9);
+            box-shadow: 0 20px 45px rgba(15, 23, 42, 0.95);
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            max-width: 540px;
+        }
+
+        .student-card::before,
+        .bmi-card::before,
+        .bank-card::before,
+        .stopwatch-card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at top right, rgba(56, 189, 248, 0.12), transparent 55%);
+            opacity: 0.8;
+            pointer-events: none;
+        }
+
+        .student-card-inner,
+        .bmi-card-inner,
+        .bank-card-inner,
+        .stopwatch-card-inner {
+            position: relative;
+            z-index: 1;
+        }
+
+        .mini-title-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .mini-h1 {
+            font-size: 1.1rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        .mini-badge {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            border-radius: 999px;
+            border: 1px solid rgba(148, 163, 184, 0.5);
+            padding: 3px 9px;
+            color: var(--text-muted);
+        }
+
+        .mini-subtitle {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 14px;
+        }
+
+        form {
+            display: grid;
+            gap: 10px;
+            margin-top: 4px;
+        }
+
+        .field-group {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        label {
+            font-size: 0.82rem;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            color: var(--text-muted);
+        }
+
+        .required-mark {
+            color: #f97373;
+            margin-left: 2px;
+        }
+
+        input,
+        select,
+        textarea {
+            background: rgba(15, 23, 42, 0.95);
+            border-radius: 10px;
+            border: 1px solid rgba(51, 65, 85, 0.9);
+            padding: 8px 10px;
+            font-size: 0.9rem;
+            color: var(--text-main);
+            outline: none;
+            transition: border-color 0.15s ease, box-shadow 0.15s ease,
+                background-color 0.15s ease;
+        }
+
+        input::placeholder,
+        textarea::placeholder {
+            color: rgba(148, 163, 184, 0.8);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 70px;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.15);
+        }
+
+        .row-2 {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 10px;
+        }
+
+        @media (max-width: 540px) {
+            .row-2 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .hint {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .radio-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .radio-pill {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 0.82rem;
+            padding: 5px 8px;
+            border-radius: 999px;
+            border: 1px solid rgba(51, 65, 85, 0.9);
+            background: rgba(15, 23, 42, 0.9);
+        }
+
+        .radio-pill input {
+            width: 14px;
+            height: 14px;
+            accent-color: var(--accent);
+        }
+
+        .actions {
+            margin-top: 6px;
+            display: flex;
+            gap: 10px;
+        }
+
+        button {
+            border-radius: 999px;
+            padding: 8px 12px;
+            font-size: 0.9rem;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            transition: transform 0.08s ease-out, box-shadow 0.12s ease-out,
+                background-color 0.12s ease-out;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+            color: #0f172a;
+            box-shadow: 0 10px 22px rgba(56, 189, 248, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 14px 30px rgba(56, 189, 248, 0.55);
+        }
+
+        .btn-secondary {
+            background: rgba(15, 23, 42, 0.95);
+            color: var(--text-muted);
+            border: 1px solid rgba(51, 65, 85, 0.9);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(15, 23, 42, 1);
+        }
+
+        /* BMI small tweaks */
+        .bmi-card {
+            max-width: 420px;
+        }
+
+        .result-box {
+            margin-top: 14px;
+            padding: 10px 12px;
+            border-radius: 12px;
+            border: 1px solid rgba(51, 65, 85, 0.9);
+            background: rgba(15, 23, 42, 0.9);
+            font-size: 0.88rem;
+            line-height: 1.6;
+        }
+
+        .result-value {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--accent);
+        }
+
+        .result-category {
+            font-weight: 500;
+        }
+
+        .error {
+            color: #f97373;
+            font-size: 0.8rem;
+            margin-top: 4px;
+            min-height: 16px;
+        }
+
+        /* Bank compact */
+        .bank-card {
+            max-width: 640px;
+            padding: 22px 22px 20px;
+        }
+
+        .bank-grid {
+            display: grid;
+            grid-template-columns: 1.3fr 1.7fr;
+            gap: 14px;
+        }
+
+        @media (max-width: 640px) {
+            .bank-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .balance-card,
+        .actions-card {
+            background: rgba(15, 23, 42, 0.9);
+            border-radius: 16px;
+            padding: 14px 14px 12px;
+            border: 1px solid rgba(51, 65, 85, 0.9);
+        }
+
+        .section-title-min {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+
+        .account-name {
+            font-size: 0.95rem;
+            color: var(--text-main);
+            margin-bottom: 6px;
+        }
+
+        .balance-value {
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: 4px;
+        }
+
+        .mini-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .buttons-row {
+            display: flex;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .btn-deposit {
+            flex: 1;
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            color: #022c22;
+            box-shadow: 0 10px 22px rgba(34, 197, 94, 0.4);
+        }
+
+        .btn-deposit:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 14px 30px rgba(34, 197, 94, 0.5);
+        }
+
+        .btn-withdraw {
+            flex: 1;
+            background: rgba(15, 23, 42, 0.95);
+            color: #f97373;
+            border: 1px solid rgba(127, 29, 29, 0.85);
+        }
+
+        .btn-withdraw:hover {
+            background: rgba(127, 29, 29, 0.95);
+            color: #fee2e2;
+        }
+
+        .btn-reset {
+            flex: 1;
+            background: rgba(15, 23, 42, 0.95);
+            color: var(--text-muted);
+            border: 1px solid rgba(51, 65, 85, 0.9);
+        }
+
+        .btn-reset:hover {
+            background: rgba(15, 23, 42, 1);
+        }
+
+        .message {
+            margin-top: 8px;
+            font-size: 0.8rem;
+            min-height: 18px;
+        }
+
+        .message.success {
+            color: #4ade80;
+        }
+
+        .message.error {
+            color: #f97373;
+        }
+
+        .history {
+            margin-top: 10px;
+            max-height: 180px;
+            overflow-y: auto;
+        }
+
+        .history-title {
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+
+        .history-item {
+            font-size: 0.82rem;
+            padding: 4px 0;
+            border-bottom: 1px dashed rgba(51, 65, 85, 0.7);
+        }
+
+        /* Voting */
+        .vote-container {
+            background: #020617;
+            padding: 20px;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 360px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+            border: 1px solid #1f2937;
+        }
+
+        .vote-container h1 {
+            font-size: 1.1rem;
+            text-align: center;
+            margin-bottom: 10px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .vote-container p {
+            font-size: 0.9rem;
+            color: #9ca3af;
+            text-align: center;
+            margin-bottom: 16px;
+        }
+
+        .candidate {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            padding: 6px 8px;
+            border-radius: 8px;
+            background: #020617;
+            border: 1px solid #1f2937;
+        }
+
+        .candidate span {
+            font-size: 0.9rem;
+        }
+
+        .vote-container button {
+            padding: 5px 10px;
+            border-radius: 999px;
+            border: none;
+            cursor: pointer;
+            font-size: 0.8rem;
+            background: #38bdf8;
+            color: #0f172a;
+        }
+
+        .vote-container button:hover {
+            background: #0ea5e9;
+        }
+
+        .results {
+            margin-top: 12px;
+            font-size: 0.9rem;
+        }
+
+        .results div {
+            margin-bottom: 4px;
+        }
+
+        .vote-message {
+            margin-top: 8px;
+            font-size: 0.8rem;
+            color: #4ade80;
+            min-height: 16px;
+        }
+
+        /* Stopwatch */
+        .time-display {
+            font-family: ui-monospace, Menlo, Monaco, Consolas,
+                "Liberation Mono", "Courier New", monospace;
+            font-size: 2rem;
+            letter-spacing: 0.12em;
+            padding: 10px 14px;
+            border-radius: 14px;
+            border: 1px solid rgba(51, 65, 85, 0.9);
+            background: rgba(15, 23, 42, 0.95);
+            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.9);
+            margin-bottom: 16px;
+            display: inline-block;
+        }
+
+        .stopwatch-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-start {
+            flex: 1;
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            color: #022c22;
+            box-shadow: 0 10px 22px rgba(34, 197, 94, 0.4);
+        }
+
+        .btn-start:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 14px 30px rgba(34, 197, 94, 0.5);
+        }
+
+        .btn-pause {
+            flex: 1;
+            background: rgba(15, 23, 42, 0.95);
+            color: var(--text-main);
+            border: 1px solid rgba(51, 65, 85, 0.9);
+        }
+
+        .btn-pause:hover {
+            background: rgba(30, 64, 175, 0.9);
+            border-color: rgba(59, 130, 246, 0.9);
+        }
+
+        .btn-stop-reset {
+            flex: 1;
+            background: rgba(15, 23, 42, 0.95);
+            color: #f97373;
+            border: 1px solid rgba(127, 29, 29, 0.8);
+        }
+
+        .btn-stop-reset:hover {
+            background: rgba(127, 29, 29, 0.9);
+            color: #fecaca;
+        }
+
+        /* Powers */
+        .powers-container {
+            background: #020617;
+            padding: 20px;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 360px;
+            border: 1px solid #1f2937;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+        }
+
+        .powers-container h1 {
+            font-size: 1.1rem;
+            text-align: center;
+            margin-bottom: 10px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .input-row {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .input-row input {
+            flex: 1;
+            padding: 6px 8px;
+            border-radius: 8px;
+            border: 1px solid #1f2937;
+            background: #020617;
+            color: #f9fafb;
+        }
+
+        .input-row input::placeholder {
+            color: #9ca3af;
+        }
+
+        .input-row button {
+            padding: 6px 10px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            background: #38bdf8;
+            color: #0f172a;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .input-row button:hover {
+            background: #0ea5e9;
+        }
+
+        .boxes {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .box {
+            background: #020617;
+            border-radius: 10px;
+            border: 1px solid #1f2937;
+            padding: 10px;
+            text-align: center;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        /* Calendar */
+        .calendar-wrapper {
+            background: #020617;
+            border-radius: 16px;
+            border: 1px solid #1f2937;
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7);
+            width: 100%;
+            max-width: 360px;
+            padding: 16px 14px 18px;
+        }
+
+        .calendar-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+
+        .month-year {
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .nav-btn {
+            border: none;
+            background: #020617;
+            color: var(--text-main);
+            border-radius: 999px;
+            padding: 4px 10px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            border: 1px solid #1f2937;
+        }
+
+        .nav-btn:hover {
+            background: #111827;
+        }
+
+        .weekdays,
+        .days {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            text-align: center;
+            font-size: 0.8rem;
+        }
+
+        .weekdays div {
+            padding: 6px 0;
+            color: var(--text-muted);
+        }
+
+        .days div {
+            padding: 8px 0;
+            margin: 2px 0;
+            border-radius: 8px;
+        }
+
+        .days div.other-month {
+            color: #4b5563;
+        }
+
+        .days div.current-day {
+            background: var(--accent);
+            color: #020617;
+            font-weight: 600;
+        }
+
+        .days div:hover {
+            background: rgba(55, 65, 81, 0.7);
+            cursor: pointer;
+        }
+
+        .calendar-title {
+            text-align: center;
+            font-size: 0.9rem;
+            margin-bottom: 6px;
+            color: var(--text-muted);
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="header-inner">
+        <div class="branding">
+            <div class="avatar-circle"></div>
+            <div>
+                <h1>Raghavendra Papana</h1>
+                <p class="tagline">Student · Web Developer · Programmer</p>
+            </div>
+        </div>
+        <nav>
+            <a class="nav-link" href="#portfolio">Portfolio</a>
+            <a class="nav-link" href="#student-form">Student Form</a>
+            <a class="nav-link" href="#bmi">BMI</a>
+            <a class="nav-link" href="#bank">Bank</a>
+            <a class="nav-link" href="#vote">Vote</a>
+            <a class="nav-link" href="#stopwatch">Stopwatch</a>
+            <a class="nav-link" href="#powers">Powers</a>
+            <a class="nav-link" href="#calendar">Calendar</a>
+        </nav>
+    </div>
+</header>
+
+<main>
+
+    <!-- Portfolio -->
+    <section id="portfolio" class="section-card">
+        <div class="section-inner">
+            <div class="section-title-row">
+                <h2>Portfolio</h2>
+                <span class="pill">Intro</span>
+            </div>
+            <div class="two-column">
+                <div>
+                    <p class="lead">
+                        I am a student interested in web development and programming. I enjoy learning HTML, CSS,
+                        JavaScript, Java, PHP, and Data Structures.
+                    </p>
+                    <h3 style="margin-top:12px;font-size:0.9rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.12em;">Projects</h3>
+                    <ul style="list-style:none;margin-top:8px;">
+                        <li style="margin-bottom:8px;">
+                            <span style="color:var(--text-main);font-weight:500;">Financing Platforms For Startups</span>
+                            <span style="font-size:0.78rem;padding:2px 7px;border-radius:999px;border:1px solid rgba(56,189,248,0.5);color:var(--accent);margin-left:6px;">HTML · CSS · JavaScript</span>
+                            <p>A web-based concept to help startups explore financing options and showcase funding details.</p>
+                        </li>
+                        <li style="margin-bottom:8px;">
+                            <span style="color:var(--text-main);font-weight:500;">Estimation of crop progression</span>
+                            <p>A project focused on analyzing and estimating how crops grow using data-driven insights.</p>
+                        </li>
+                        <li>
+                            <span style="color:var(--text-main);font-weight:500;">AI Literature Tutor</span>
+                            <p>An AI-powered assistant to help students understand literature topics and concepts interactively.</p>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 style="font-size:0.9rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:6px;">Skills</h3>
+                    <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;">
+                        <span class="pill">HTML</span>
+                        <span class="pill">CSS</span>
+                        <span class="pill">JavaScript</span>
+                        <span class="pill">Java</span>
+                        <span class="pill">PHP</span>
+                        <span class="pill">MySQL</span>
+                        <span class="pill">DS & Algorithms</span>
+                        <span class="pill">OS Basics</span>
+                    </div>
+                    <h3 style="font-size:0.9rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:6px;">Education</h3>
+                    <p style="color:var(--text-main);margin-bottom:10px;">Bachelor’s Degree – Computer Science</p>
+                    <h3 style="font-size:0.9rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:6px;">Contact</h3>
+                    <p>Email: <a href="mailto:raghavendrapapana18@gmail.com" style="color:var(--accent);">raghavendrapapana18@gmail.com</a></p>
+                    <p>Phone: <a href="tel:+918309911706" style="color:var(--accent);">+91 8309911706</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Student Form -->
+    <section id="student-form" class="section-card">
+        <div class="section-inner">
+            <div class="section-title-row">
+                <h2>Student Form</h2>
+                <span class="pill">Registration</span>
+            </div>
+            <div class="student-wrapper">
+                <div class="student-card">
+                    <div class="student-card-inner">
+                        <div class="mini-title-row">
+                            <div class="mini-h1">Student Form</div>
+                            <span class="mini-badge">Registration</span>
+                        </div>
+                        <p class="mini-subtitle">
+                            Fill in your basic details so we can keep your academic information up to date.
+                        </p>
+
+                        <form id="studentForm">
+                            <div class="field-group">
+                                <label for="fullName">
+                                    Full Name<span class="required-mark">*</span>
+                                </label>
+                                <input
+                                    type="text"
+                                    id="fullName"
+                                    name="fullName"
+                                    placeholder="Enter your full name"
+                                    required
+                                />
+                            </div>
+
+                            <div class="row-2">
+                                <div class="field-group">
+                                    <label for="email">
+                                        Email<span class="required-mark">*</span>
+                                    </label>
+                                    <input
+                                        type="email"
+                                        id="email"
+                                        name="email"
+                                        placeholder="you@example.com"
+                                        required
+                                    />
+                                </div>
+                                <div class="field-group">
+                                    <label for="phone">
+                                        Phone<span class="required-mark">*</span>
+                                    </label>
+                                    <input
+                                        type="tel"
+                                        id="phone"
+                                        name="phone"
+                                        placeholder="+91 98765 43210"
+                                        required
+                                    />
+                                </div>
+                            </div>
+
+                            <div class="row-2">
+                                <div class="field-group">
+                                    <label for="dob">
+                                        Date of Birth<span class="required-mark">*</span>
+                                    </label>
+                                    <input type="date" id="dob" name="dob" required />
+                                </div>
+                                <div class="field-group">
+                                    <label>
+                                        Gender
+                                    </label>
+                                    <div class="radio-group">
+                                        <label class="radio-pill">
+                                            <input type="radio" name="gender" value="Male" />
+                                            <span>Male</span>
+                                        </label>
+                                        <label class="radio-pill">
+                                            <input type="radio" name="gender" value="Female" />
+                                            <span>Female</span>
+                                        </label>
+                                        <label class="radio-pill">
+                                            <input type="radio" name="gender" value="Other" />
+                                            <span>Other</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="field-group">
+                                <label for="course">
+                                    Course / Program<span class="required-mark">*</span>
+                                </label>
+                                <select id="course" name="course" required>
+                                    <option value="">Select your course</option>
+                                    <option value="B.Tech">B.Tech</option>
+                                    <option value="B.Sc">B.Sc</option>
+                                    <option value="BCA">BCA</option>
+                                    <option value="B.Com">B.Com</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                                <span class="hint">Choose the course you are currently pursuing.</span>
+                            </div>
+
+                            <div class="field-group">
+                                <label for="year">
+                                    Year / Semester<span class="required-mark">*</span>
+                                </label>
+                                <select id="year" name="year" required>
+                                    <option value="">Select year / semester</option>
+                                    <option value="1st Year">1st Year</option>
+                                    <option value="2nd Year">2nd Year</option>
+                                    <option value="3rd Year">3rd Year</option>
+                                    <option value="4th Year">4th Year</option>
+                                </select>
+                            </div>
+
+                            <div class="field-group">
+                                <label for="address">
+                                    Address
+                                </label>
+                                <textarea
+                                    id="address"
+                                    name="address"
+                                    placeholder="House no, street, city, state"
+                                ></textarea>
+                            </div>
+
+                            <div class="actions">
+                                <button type="submit" class="btn-primary">Submit</button>
+                                <button type="reset" class="btn-secondary">Reset</button>
+                            </div>
+
+                            <p class="hint">
+                                Fields marked with <span class="required-mark">*</span> are required.
+                            </p>
+                        </form>
+
+                        <div id="output" style="display: none;margin-top:10px;padding:10px 12px;border-radius:12px;border:1px solid rgba(51,65,85,0.9);background:rgba(15,23,42,0.9);font-size:0.86rem;line-height:1.6;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BMI -->
+    <section id="bmi" class="section-card">
+        <div class="section-inner">
+            <div class="section-title-row">
+                <h2>BMI Calculator</h2>
+                <span class="pill">Health</span>
+            </div>
+            <div class="bmi-wrapper">
+                <div class="bmi-card">
+                    <div class="bmi-card-inner">
+                        <div class="mini-h1" style="margin-bottom:4px;">BMI Calculator</div>
+                        <p class="mini-subtitle">
+                            Enter your height and weight to calculate your Body Mass Index.
+                        </p>
+
+                        <div class="field-group">
+                            <label for="height">Height (cm)</label>
+                            <input
+                                type="number"
+                                id="height"
+                                placeholder="e.g. 170"
+                                min="50"
+                                max="250"
+                            />
+                            <span class="hint">Example: 170 cm</span>
+                        </div>
+
+                        <div class="field-group">
+                            <label for="weight">Weight (kg)</label>
+                            <input
+                                type="number"
+                                id="weight"
+                                placeholder="e.g. 65"
+                                min="10"
+                                max="300"
+                            />
+                            <span class="hint">Example: 65 kg</span>
+                        </div>
+
+                        <button id="calcBtn" class="btn-primary" style="width:100%;margin-top:8px;">Calculate BMI</button>
+                        <div id="bmiError" class="error"></div>
+
+                        <div id="resultBox" class="result-box" style="display: none;">
+                            <div>Your BMI is: <span id="bmiValue" class="result-value"></span></div>
+                            <div>Status: <span id="bmiStatus" class="result-category"></span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bank -->
+    <section id="bank" class="section-card">
+        <div class="section-inner">
+            <div class="section-title-row">
+                <h2>Bank Management</h2>
+                <span class="pill">Finance</span>
+            </div>
+            <div class="bank-wrapper">
+                <div class="bank-card">
+                    <div class="bank-card-inner">
+                        <div class="mini-title-row">
+                            <div class="mini-h1">Bank Management</div>
+                            <span class="mini-badge">Demo Account</span>
+                        </div>
+                        <p class="mini-subtitle">
+                            Simple single‑account dashboard to check balance, deposit money, and withdraw money.
+                        </p>
+
+                        <div class="bank-grid">
+                            <div class="balance-card">
+                                <div class="section-title-min">Account Summary</div>
+                                <div class="account-name">Account Holder: Demo User</div>
+                                <div id="balance" class="balance-value">₹10,000.00</div>
+                                <div class="mini-label">Account Number: 1234 5678 9012</div>
+                                <div class="mini-label">Type: Savings Account</div>
+
+                                <div class="history">
+                                    <div class="history-title">Transaction History</div>
+                                    <div id="historyList"></div>
+                                </div>
+                            </div>
+
+                            <div class="actions-card">
+                                <div class="section-title-min">Manage Funds</div>
+
+                                <div class="row-2">
+                                    <div class="field-group">
+                                        <label for="depositAmount">Deposit (₹)</label>
+                                        <input
+                                            type="number"
+                                            id="depositAmount"
+                                            placeholder="e.g. 500"
+                                            min="1"
+                                        />
+                                    </div>
+                                    <div class="field-group">
+                                        <label for="withdrawAmount">Withdraw (₹)</label>
+                                        <input
+                                            type="number"
+                                            id="withdrawAmount"
+                                            placeholder="e.g. 300"
+                                            min="1"
+                                        />
+                                    </div>
+                                </div>
+
+                                <div class="buttons-row">
+                                    <button id="depositBtn" class="btn-deposit">Deposit</button>
+                                    <button id="withdrawBtn" class="btn-withdraw">Withdraw</button>
+                                    <button id="resetBankBtn" class="btn-reset">Reset</button>
+                                </div>
+
+                                <div id="message" class="message"></div>
+
+                                <p class="hint" style="margin-top:10px;">
+                                    Note: This is a front‑end demo only; values reset when you refresh the page.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Vote -->
+    <section id="vote" class="section-card">
+        <div class="section-inner">
+            <div class="section-title-row">
+                <h2>Vote Mission</h2>
+                <span class="pill">Voting</span>
+            </div>
+            <div class="vote-wrapper">
+                <div class="vote-container">
+                    <h1>Vote Mission</h1>
+                    <p>Click a button to vote for a candidate.</p>
+
+                    <div class="candidate">
+                        <span>Candidate A</span>
+                        <button onclick="vote('A')">Vote A</button>
+                    </div>
+                    <div class="candidate">
+                        <span>Candidate B</span>
+                        <button onclick="vote('B')">Vote B</button>
+                    </div>
+                    <div class="candidate">
+                        <span>Candidate C</span>
+                        <button onclick="vote('C')">Vote C</button>
+                    </div>
+
+                    <div class="results">
+                        <div>Candidate A votes: <span id="countA">0</span></div>
+                        <div>Candidate B votes: <span id="countB">0</span></div>
+                        <div>Candidate C votes: <span id="countC">0</span></div>
+                        <div>Total votes: <span id="total">0</span></div>
+                    </div>
+
+                    <div id="msg" class="vote-message"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stopwatch -->
+    <section id="stopwatch" class="section-card">
+        <div class="section-inner">
+            <div class="section-title-row">
+                <h2>Stopwatch</h2>
+                <span class="pill">Timer</span>
+            </div>
+            <div class="stopwatch-wrapper">
+                <div class="stopwatch-card">
+                    <div class="stopwatch-card-inner" style="text-align:center;">
+                        <div class="mini-h1" style="margin-bottom:8px;">Stopwatch</div>
+                        <p class="mini-subtitle">
+                            Use Start, Pause, and Reset to control the timer.
+                        </p>
+
+                        <div id="display" class="time-display">00:00:00</div>
+
+                        <div class="stopwatch-buttons">
+                            <button id="startBtn" class="btn-start">Start</button>
+                            <button id="pauseBtn" class="btn-pause">Pause</button>
+                            <button id="resetBtn" class="btn-stop-reset">Reset</button>
+                        </div>
+
+                        <p class="hint" style="margin-top:10px;">Format: hours : minutes : seconds</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Powers -->
+    <section id="powers" class="section-card">
+        <div class="section-inner">
+            <div class="section-title-row">
+                <h2>Powers</h2>
+                <span class="pill">Math</span>
+            </div>
+            <div class="powers-wrapper">
+                <div class="powers-container">
+                    <h1>Powers</h1>
+
+                    <div class="input-row">
+                        <input id="numInput" type="number" placeholder="Enter a number (e.g. 2)" />
+                        <button onclick="showPowers()">Show</button>
+                    </div>
+
+                    <div id="errorPowers" class="error"></div>
+
+                    <div class="boxes">
+                        <div id="p1" class="box">-</div>
+                        <div id="p2" class="box">-</div>
+                        <div id="p3" class="box">-</div>
+                        <div id="p4" class="box">-</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Calendar -->
+    <section id="calendar" class="section-card">
+        <div class="section-inner">
+            <div class="section-title-row">
+                <h2>Calendar</h2>
+                <span class="pill">Change Month & Year</span>
+            </div>
+            <div class="calendar-wrapper-outer" style="display:flex;justify-content:center;">
+                <div class="calendar-wrapper">
+                    <div class="calendar-title">Calendar (Change Month & Year)</div>
+                    <div class="calendar-header">
+                        <button id="prevBtn" class="nav-btn">&lt; Prev</button>
+                        <div id="monthYear" class="month-year"></div>
+                        <button id="nextBtn" class="nav-btn">Next &gt;</button>
+                    </div>
+
+                    <div class="weekdays">
+                        <div>Sun</div>
+                        <div>Mon</div>
+                        <div>Tue</div>
+                        <div>Wed</div>
+                        <div>Thu</div>
+                        <div>Fri</div>
+                        <div>Sat</div>
+                    </div>
+                    <div id="days" class="days"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<footer>
+    © 2026 Raghavendra Papana · All rights reserved
+</footer>
+
+<script>
+    // Student form
+    const form = document.getElementById('studentForm');
+    const output = document.getElementById('output');
+
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const fullName = document.getElementById('fullName').value;
+        const email = document.getElementById('email').value;
+        const phone = document.getElementById('phone').value;
+        const dob = document.getElementById('dob').value;
+        const course = document.getElementById('course').value;
+        const year = document.getElementById('year').value;
+        const address = document.getElementById('address').value;
+
+        const genderInput = document.querySelector('input[name="gender"]:checked');
+        const gender = genderInput ? genderInput.value : 'Not specified';
+
+        output.style.display = 'block';
+        output.innerHTML = `
+            <strong>Submitted Details:</strong><br>
+            Name: ${fullName}<br>
+            Email: ${email}<br>
+            Phone: ${phone}<br>
+            Date of Birth: ${dob}<br>
+            Gender: ${gender}<br>
+            Course: ${course}<br>
+            Year/Semester: ${year}<br>
+            Address: ${address || '—'}
+        `;
+    });
+
+    // BMI
+    const heightInput = document.getElementById('height');
+    const weightInput = document.getElementById('weight');
+    const calcBtn = document.getElementById('calcBtn');
+    const errorDivBMI = document.getElementById('bmiError');
+    const resultBox = document.getElementById('resultBox');
+    const bmiValueSpan = document.getElementById('bmiValue');
+    const bmiStatusSpan = document.getElementById('bmiStatus');
+
+    calcBtn.addEventListener('click', function () {
+        const height = parseFloat(heightInput.value);
+        const weight = parseFloat(weightInput.value);
+
+        errorDivBMI.textContent = '';
+        resultBox.style.display = 'none';
+
+        if (!height || !weight || height <= 0 || weight <= 0) {
+            errorDivBMI.textContent = 'Please enter valid height and weight values.';
+            return;
+        }
+
+        const heightMeters = height / 100;
+        const bmi = weight / (heightMeters * heightMeters);
+        const bmiRounded = bmi.toFixed(1);
+
+        let status = '';
+
+        if (bmi < 18.5) {
+            status = 'Underweight';
+        } else if (bmi >= 18.5 && bmi < 25) {
+            status = 'Normal weight';
+        } else if (bmi >= 25 && bmi < 30) {
+            status = 'Overweight';
+        } else {
+            status = 'Obese';
+        }
+
+        bmiValueSpan.textContent = bmiRounded;
+        bmiStatusSpan.textContent = status;
+        resultBox.style.display = 'block';
+    });
+
+    // Bank
+    let balance = 10000;
+
+    const balanceEl = document.getElementById('balance');
+    const depositInput = document.getElementById('depositAmount');
+    const withdrawInput = document.getElementById('withdrawAmount');
+    const depositBtn = document.getElementById('depositBtn');
+    const withdrawBtn = document.getElementById('withdrawBtn');
+    const resetBankBtn = document.getElementById('resetBankBtn');
+    const messageEl = document.getElementById('message');
+    const historyList = document.getElementById('historyList');
+
+    function formatCurrency(amount) {
+        return '₹' + amount.toLocaleString('en-IN', {
+            maximumFractionDigits: 2,
+            minimumFractionDigits: 2
+        });
+    }
+
+    function updateBalance() {
+        balanceEl.textContent = formatCurrency(balance);
+    }
+
+    function addHistoryEntry(text) {
+        const div = document.createElement('div');
+        div.className = 'history-item';
+        const now = new Date().toLocaleTimeString();
+        div.innerHTML = `<span>[${now}]</span> ${text}`;
+        historyList.prepend(div);
+    }
+
+    function showMessage(text, type) {
+        messageEl.textContent = text;
+        messageEl.className = 'message ' + type;
+    }
+
+    depositBtn.addEventListener('click', () => {
+        const value = parseFloat(depositInput.value);
+        if (!value || value <= 0) {
+            showMessage('Enter a valid deposit amount.', 'error');
+            return;
+        }
+        balance += value;
+        updateBalance();
+        addHistoryEntry(`Deposited ${formatCurrency(value)}.`);
+        showMessage('Deposit successful.', 'success');
+        depositInput.value = '';
+    });
+
+    withdrawBtn.addEventListener('click', () => {
+        const value = parseFloat(withdrawInput.value);
+        if (!value || value <= 0) {
+            showMessage('Enter a valid withdrawal amount.', 'error');
+            return;
+        }
+        if (value > balance) {
+            showMessage('Insufficient balance for this withdrawal.', 'error');
+            return;
+        }
+        balance -= value;
+        updateBalance();
+        addHistoryEntry(`Withdrew ${formatCurrency(value)}.`);
+        showMessage('Withdrawal successful.', 'success');
+        withdrawInput.value = '';
+    });
+
+    resetBankBtn.addEventListener('click', () => {
+        balance = 10000;
+        updateBalance();
+        historyList.innerHTML = '';
+        depositInput.value = '';
+        withdrawInput.value = '';
+        showMessage('Account reset to initial balance.', 'success');
+    });
+
+    updateBalance();
+    showMessage('', '');
+
+    // Voting
+    let votes = { A: 0, B: 0, C: 0 };
+
+    function updateDisplayVotes() {
+        document.getElementById('countA').textContent = votes.A;
+        document.getElementById('countB').textContent = votes.B;
+        document.getElementById('countC').textContent = votes.C;
+        document.getElementById('total').textContent =
+            votes.A + votes.B + votes.C;
+    }
+
+    function vote(candidate) {
+        votes[candidate] += 1;
+        updateDisplayVotes();
+        document.getElementById('msg').textContent =
+            'You voted for Candidate ' + candidate + '.';
+    }
+
+    updateDisplayVotes();
+
+    // Stopwatch
+    let seconds = 0;
+    let timer = null;
+    let isRunning = false;
+
+    const display = document.getElementById('display');
+    const startBtn = document.getElementById('startBtn');
+    const pauseBtn = document.getElementById('pauseBtn');
+    const resetBtn = document.getElementById('resetBtn');
+
+    function formatTime(sec) {
+        const hrs = Math.floor(sec / 3600);
+        const mins = Math.floor((sec % 3600) / 60);
+        const secs = sec % 60;
+
+        const h = hrs.toString().padStart(2, '0');
+        const m = mins.toString().padStart(2, '0');
+        const s = secs.toString().padStart(2, '0');
+
+        return `${h}:${m}:${s}`;
+    }
+
+    function updateStopwatchDisplay() {
+        display.textContent = formatTime(seconds);
+    }
+
+    function startTimer() {
+        if (isRunning) return;
+        isRunning = true;
+        timer = setInterval(() => {
+            seconds++;
+            updateStopwatchDisplay();
+        }, 1000);
+    }
+
+    function pauseTimer() {
+        isRunning = false;
+        clearInterval(timer);
+    }
+
+    function resetTimer() {
+        pauseTimer();
+        seconds = 0;
+        updateStopwatchDisplay();
+    }
+
+    startBtn.addEventListener('click', startTimer);
+    pauseBtn.addEventListener('click', pauseTimer);
+    resetBtn.addEventListener('click', resetTimer);
+
+    updateStopwatchDisplay();
+
+    // Powers
+    function showPowers() {
+        const input = document.getElementById('numInput');
+        const errorDiv = document.getElementById('errorPowers');
+        const n = parseFloat(input.value);
+
+        errorDiv.textContent = '';
+
+        if (!n && n !== 0) {
+            errorDiv.textContent = 'Please enter a valid number (e.g. 2).';
+            return;
+        }
+
+        document.getElementById('p1').textContent = Math.pow(n, 1);
+        document.getElementById('p2').textContent = Math.pow(n, 2);
+        document.getElementById('p3').textContent = Math.pow(n, 3);
+        document.getElementById('p4').textContent = Math.pow(n, 4);
+    }
+
+    // Calendar
+    const monthYearEl = document.getElementById('monthYear');
+    const daysEl = document.getElementById('days');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+
+    const monthNames = [
+        'January', 'February', 'March', 'April', 'May', 'June',
+        'July', 'August', 'September', 'October', 'November', 'December'
+    ];
+
+    let currentDate = new Date();
+    let currentMonth = currentDate.getMonth();
+    let currentYear = currentDate.getFullYear();
+
+    function renderCalendar() {
+        daysEl.innerHTML = '';
+
+        monthYearEl.textContent = monthNames[currentMonth] + ' ' + currentYear;
+
+        const firstDayOfMonth = new Date(currentYear, currentMonth, 1).getDay();
+        const lastDateOfMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+        const lastDatePrevMonth = new Date(currentYear, currentMonth, 0).getDate();
+
+        for (let i = firstDayOfMonth - 1; i >= 0; i--) {
+            const day = lastDatePrevMonth - i;
+            const div = document.createElement('div');
+            div.textContent = day;
+            div.classList.add('other-month');
+            daysEl.appendChild(div);
+        }
+
+        const today = new Date();
+        for (let d = 1; d <= lastDateOfMonth; d++) {
+            const div = document.createElement('div');
+            div.textContent = d;
+
+            if (
+                d === today.getDate() &&
+                currentMonth === today.getMonth() &&
+                currentYear === today.getFullYear()
+            ) {
+                div.classList.add('current-day');
+            }
+
+            daysEl.appendChild(div);
+        }
+
+        const totalCells = daysEl.children.length;
+        const remaining = totalCells % 7 === 0 ? 0 : 7 - (totalCells % 7);
+        for (let i = 1; i <= remaining; i++) {
+            const div = document.createElement('div');
+            div.textContent = i;
+            div.classList.add('other-month');
+            daysEl.appendChild(div);
+        }
+    }
+
+    prevBtn.addEventListener('click', () => {
+        currentMonth--;
+        if (currentMonth < 0) {
+            currentMonth = 11;
+            currentYear--;
+        }
+        renderCalendar();
+    });
+
+    nextBtn.addEventListener('click', () => {
+        currentMonth++;
+        if (currentMonth > 11) {
+            currentMonth = 0;
+            currentYear++;
+        }
+        renderCalendar();
+    });
+
+    renderCalendar();
+</script>
+</body>
+</html>
